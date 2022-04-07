@@ -1,1 +1,1 @@
-"# Szallasfoglalas" 
+#It's a simple booking app without datasave.
