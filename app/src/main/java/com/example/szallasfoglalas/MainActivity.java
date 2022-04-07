@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -35,12 +36,29 @@ public class MainActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
 
         //Amikor rákattintanak erre a vezérlőre, akkor történjen ez:
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        searchButton.setOnClickListener(v -> { //lambda kifejezés
+
+                String dest = destinationEditText.getText().toString();
+                boolean business = businessCheckBox.isChecked();
+
+                String businessStr = business ? "igen" : "nem";
+                String message = "Cél: " + dest + ", Üzleti út: " + businessStr;
+
                 //Egyszerű üzenet megjelenítése
-                Toast.makeText(getApplicationContext(),"Keresés esemény", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
-        });
+        );
+
+        initAdultSpinner();
+    }
+
+    private void initAdultSpinner() {
+        // lista megjelenítéséhez kell egy adapter
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.number_of_adults,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        adultSpinner.setAdapter(adapter);
     }
 }
